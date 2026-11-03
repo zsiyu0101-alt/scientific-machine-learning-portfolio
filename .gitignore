@@ -1,0 +1,11 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.env
+*.pt
+*.pkl
+*.joblib
+*.rds
+Part_A_results/
+Part_B_results/
+pulsar-detection/data/
