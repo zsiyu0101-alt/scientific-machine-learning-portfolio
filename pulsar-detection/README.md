@@ -1,13 +1,13 @@
-# 脉冲星识别
+# Pulsar Detection
 
-## 环境与运行
+## Setup and Execution
 
-需要 Python 和 R。Python 依赖：`pip install -r requirements.txt`。R 脚本会尝试安装所需的 caret、MASS、rpart、kernlab、randomForest、ggplot2、pROC、e1071。
+Requires Python and R. Install Python dependencies with `pip install -r requirements.txt`. The R script attempts to install its required packages: caret, MASS, rpart, kernlab, randomForest, ggplot2, pROC and e1071.
 
-1. 将 `train_agnpsr_3fgl.csv` 与 `test_agnpsr_3fgl.csv` 放在本目录的 `data/` 下，或设置 `PULSAR_DATA_DIR` 指向数据目录。数据需包含 35 个数值预测变量和 `pulsarness` 标签（Pulsar / Non-Pulsar）。当前未提供 CSV。
-2. 在本目录运行 `Rscript Pulsar_Detection_Part_A.R`，生成 `Part_A_results/`。
-3. 运行 `python Pulsar_Detection_Part_B.py`，生成 `Part_B_results/`。Part B 比较阶段需要 Part A 的预测和指标文件。
+1. Place `train_agnpsr_3fgl.csv` and `test_agnpsr_3fgl.csv` in this project's `data/` folder, or set `PULSAR_DATA_DIR` to their directory. Both files must contain 35 numeric predictors and a `pulsarness` label (Pulsar / Non-Pulsar). These CSV files are not included.
+2. From this directory, run `Rscript Pulsar_Detection_Part_A.R` to generate `Part_A_results/`.
+3. Run `python Pulsar_Detection_Part_B.py` to generate `Part_B_results/`. Its comparison stage requires the prediction and metric files from Part A.
 
-输出包括指标 CSV、测试预测、模型文件和图表。依赖文件未锁定版本；请记录实际环境。代码保留原始固定样本数等断言，更换数据需检查相应假设。
+Outputs include metric tables, test predictions, fitted models and figures. Dependency versions are not pinned; record the actual environment used. The original fixed-sample-size assertions remain in the code; review these assumptions when changing datasets.
 
-参考资料由代码内链接提供；3FGL 星表本身不等于本项目使用的课程训练/测试划分。
+References are linked within the code. The 3FGL catalog itself is not equivalent to the course-supplied training/test split used in this experiment.

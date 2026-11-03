@@ -1,23 +1,25 @@
-# 悬滴法液体表面张力估计
+# Pendant-Drop Surface Tension Estimation
 
-## 文件
+## Files
 
-- `液滴轮廓检测.ipynb`：从 `1.jpg` 提取轮廓并保存 `curve_data.npy`。
-- `悬滴法.ipynb`：数值模拟、训练和实验轮廓参数预测。
-- `layers.py`：神经网络层与训练相关实现。
-- `utils.py`：轮廓处理及采样函数。
-- `1.jpg`、`curve_data.npy`：上传包中的示例图像与曲线。
+- `droplet_contour_detection.ipynb`: extracts a contour from `1.jpg` and saves `curve_data.npy`.
+- `pendant_drop.ipynb`: numerical simulation, training and experimental parameter inference.
+- `layers.py`: neural network layers and training-related implementations.
+- `utils.py`: contour processing and sampling utilities.
+- `1.jpg` and `curve_data.npy`: the supplied sample image and contour.
 
-## 运行
+## Setup and Execution
 
-安装 `pip install -r requirements.txt`，在本目录启动 `jupyter notebook`。
+Install dependencies with `pip install -r requirements.txt`, then launch `jupyter notebook` from this directory.
 
-1. 打开轮廓检测 notebook，逐单元运行并检查左右分界点；原代码部分轮廓选择需要人工调整。
-2. 打开悬滴法 notebook，运行数值求解部分生成 `rawData.pkl`，再依次执行训练部分。
-3. 推理部分需要 `plCPU.pt` 和 `R0CPU.pt`；本仓库未提供这些权重，需要先训练或提供兼容权重。
+1. Run the contour detection notebook cell by cell and inspect the left/right boundary points. Some contour selection steps require manual adjustment.
+2. Open the pendant-drop notebook, run numerical simulation to generate `rawData.pkl`, and then execute the training sections in order.
+3. Inference requires `plCPU.pt` and `R0CPU.pt`. These trained weights are not included; train the models first or supply compatible weights.
 
-## 当前限制
+## Current Limitations
 
-原代码包含显式 `.cuda()` 调用，完整训练流程需要支持 CUDA 的 NVIDIA GPU 与匹配的 PyTorch 环境。训练示例包含 5000 轮配置，运行成本取决于硬件。notebook 中保留实验常量（例如针管直径 `d=2.2` 及密度重力项 `9980`），用于其他液体或装置时必须核对标定、单位及密度差。表面张力换算为 `sigma = 9980 * (R0 * 1e-3)**2 / beta`，按这些常量的单位约定结果为 N/m。
+The original code uses explicit `.cuda()` calls. Full training therefore requires a CUDA-capable NVIDIA GPU and a matching PyTorch environment. The example includes a 5,000-epoch training configuration; runtime depends on hardware.
 
-源代码与 notebook 中存在重复类定义及实验性片段，按 notebook 顺序运行时应注意后定义覆盖前定义。本次仅整理展示材料并清除历史输出，未完成训练、权重加载兼容性或端到端测量验证。
+The notebook retains experimental constants, including needle diameter `d=2.2` and the density-gravity factor `9980`. Check calibration, units and density difference before applying the code to another liquid or apparatus. The implemented conversion is `sigma = 9980 * (R0 * 1e-3)**2 / beta`, giving N/m under the stated unit convention.
+
+The modules and notebooks contain repeated class definitions and experimental sections. Later definitions override earlier ones when cells run sequentially. Repository preparation translated comments and explanatory text and cleared historical outputs; it did not verify full training, weight-loading compatibility or end-to-end measurement accuracy.

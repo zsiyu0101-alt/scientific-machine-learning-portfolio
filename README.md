@@ -1,32 +1,32 @@
-# Scientific Machine Learning Portfolio | 科学计算与机器学习项目集
+# Scientific Machine Learning Portfolio
 
-面向天文分类与实验物理测量的两个课程项目，展示数据处理、统计建模、深度学习与科学计算能力。
+Two course projects applying machine learning and scientific computing to astronomical classification and experimental fluid measurement.
 
-| 项目 | 目标 | 技术与方法 | 代码入口 |
+| Project | Objective | Methods and tools | Source |
 | --- | --- | --- | --- |
-| 脉冲星识别 | 基于 3FGL 特征区分脉冲星与非脉冲星 | R/caret、Python、五类传统模型、MLP、交叉验证、类别不平衡评估 | [查看项目](pulsar-detection/) |
-| 悬滴法表面张力估计 | 从液滴轮廓估计物理参数并计算表面张力 | OpenCV、SciPy、Young–Laplace 方程、PyTorch、双向 GRU | [查看项目](pendant-drop/) |
+| Pulsar Detection | Classify pulsar and non-pulsar sources using 3FGL features | R/caret, Python, classical classifiers, MLP, cross-validation | [Explore project](pulsar-detection/) |
+| Pendant-Drop Surface Tension | Estimate physical parameters and surface tension from droplet contours | OpenCV, SciPy, Young-Laplace equation, PyTorch, bidirectional GRU | [Explore project](pendant-drop/) |
 
-## 1. 脉冲星识别
+## Pulsar Detection
 
-**工作流程：** 清理缺失与非有限值 → 训练集内预处理 → 传统模型基线 → MLP 候选筛选 → 多随机种子集成 → 独立测试集评估。
+**Workflow:** data checks and cleaning → training-only preprocessing → classical baselines → MLP candidate selection → multi-seed ensemble → held-out evaluation.
 
-- Part A 使用 LDA（结合 PCA）、CART、kNN、线性 SVM 和随机森林，输出指标、预测与可视化。
-- Part B 保留 35 个预测变量，以五折分层交叉验证的平均精确率筛选候选，使用训练集折外预测选择 F1 阈值。
-- 评估包括 PR/ROC 曲线、混淆矩阵、校准分析和配对不确定性比较；不同方法调参预算不一致，不能视作等预算基准。
+- Part A compares LDA with PCA, CART, kNN, linear SVM and random forest, exporting predictions, metrics and figures.
+- Part B retains all 35 predictors, selects candidates using five-fold stratified cross-validation average precision, and learns an F1 threshold from training out-of-fold predictions.
+- Evaluation includes PR/ROC curves, confusion matrices, calibration and paired uncertainty analysis. Tuning budgets differ across methods, so the comparison is not an equal-budget benchmark.
 
-[运行说明](pulsar-detection/README.md)
+[Setup and running instructions](pulsar-detection/README.md)
 
-## 2. 悬滴法表面张力估计
+## Pendant-Drop Surface Tension Estimation
 
-**工作流程：** 图像边缘与轮廓检测 → 轮廓采样 → Young–Laplace 数值解生成训练曲线 → 数据增强 → 神经网络估计参数 → 尺度标定与表面张力换算。
+**Workflow:** image edge and contour detection → contour sampling → Young-Laplace numerical simulation → data augmentation → neural parameter estimation → physical calibration and surface tension calculation.
 
-- OpenCV 提取实验液滴轮廓，支持中间步骤可视化。
-- SciPy 数值求解液滴形状方程；模拟曲线加入采样、旋转、噪声和尺度扰动。
-- PyTorch 双向 GRU 用于曲线参数回归；结合针管直径进行物理尺度换算。
+- OpenCV extracts experimental droplet contours with intermediate visualizations.
+- SciPy solves the droplet shape equation; synthetic curves receive sampling, rotation, noise and scale perturbations.
+- PyTorch bidirectional GRU models estimate curve parameters, with needle-diameter calibration converting pixel measurements to physical units.
 
-[运行说明与限制](pendant-drop/README.md)
+[Setup and current limitations](pendant-drop/README.md)
 
-## 展示范围与验证状态
+## Scope and Verification
 
-本仓库保留上传的课程项目源代码，整理目录、依赖说明，并清除 notebook 历史输出。未附带脉冲星 CSV 或悬滴模型权重，未在本次整理中完成训练或端到端复现，因此不列出未经复核的准确率、误差或优于基线的结论。代码中的授课背景及参考出处保留；课程示例与个人贡献的具体边界需结合课程记录说明。
+This repository presents the supplied course project source code with organized folders and dependency instructions. Historical notebook outputs have been cleared. Pulsar CSV datasets and trained pendant-drop weights are not included. Full training and end-to-end reproduction have not been performed during repository preparation, so no unverified accuracy, error or superiority claims are reported. Teaching context and existing references are retained; the boundary between course examples and individual contributions should be explained using the original course records.
