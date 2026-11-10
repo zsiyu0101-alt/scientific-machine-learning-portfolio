@@ -1,5 +1,11 @@
 # Pendant-Drop Surface Tension Estimation
 
+## Experimental Image
+
+<img src="1.jpg" alt="Experimental photograph of a liquid drop suspended from a needle" width="480">
+
+This photograph is the input to the OpenCV contour detection notebook. The extracted contour is used to estimate the liquid's surface tension.
+
 ## Files
 
 - `droplet_contour_detection.ipynb`: extracts a contour from `1.jpg` and saves `curve_data.npy`.
